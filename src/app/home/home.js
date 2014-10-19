@@ -6,13 +6,13 @@ angular.module('ngBoilerplate.home', [
             url: '/home',
             views: {
                 "main": {
-                    controller: 'HomeCtrl',
+                    controller: 'homeCtrl',
                     templateUrl: 'app/home/home.tpl.html'
                 }
             },
             data: { pageTitle: 'Home' }
         });
     })
-    .controller('HomeCtrl', function ($scope) {
+    .controller('homeCtrl', function ($scope) {
     });
 

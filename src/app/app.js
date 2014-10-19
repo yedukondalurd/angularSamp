@@ -1,5 +1,6 @@
 angular.module('ngBoilerplate', [
         'ngBoilerplate.home',
+        'ngBoilerplate.login',
         'ui.router'
     ])
     .config(function($stateProvider, $urlRouterProvider, $locationProvider) {
