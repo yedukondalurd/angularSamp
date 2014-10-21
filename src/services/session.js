@@ -1,13 +1,11 @@
 angular.module('ngBoilerplate')
     .service('Session', function () {
-        this.create = function (sessionId, userId, userRole) {
-            this.id = sessionId;
-            this.userId = userId;
+        this.create = function (userName, userRole) {
+            this.userName = userName;
             this.userRole = userRole;
         };
         this.destroy = function () {
-            this.id = null;
-            this.userId = null;
+            this.userName = null;
             this.userRole = null;
         };
         return this;

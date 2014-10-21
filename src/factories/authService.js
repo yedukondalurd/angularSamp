@@ -4,11 +4,12 @@ angular.module('ngBoilerplate')
 
         authService.login = function (credentials) {
             return $http
-                .post('/login', credentials)
+                .post('http://localhost/angularSamp/data.php', credentials)
                 .then(function (res) {
-                    Session.create(res.data.id, res.data.user.id,
-                        res.data.user.role);
-                    return res.data.user;
+                    console.log(res);
+                    Session.create(res.data.user,
+                        res.data.role);
+                    return res.data;
                 });
         };
 

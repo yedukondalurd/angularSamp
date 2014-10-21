@@ -19,9 +19,9 @@ angular.module('ngBoilerplate.login', [
             password: ''
         };
         $scope.login = function (credentials) {
-            AuthService.login(credentials).then(function (user) {
+            AuthService.login(credentials).then(function (data) {
                 $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
-                $scope.setCurrentUser(user);
+                $scope.setCurrentUser(data.user);
             }, function () {
                 $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
             });
