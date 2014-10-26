@@ -4,20 +4,52 @@
     <!--<base href="http://localhost/angularSamp/src/">-->
     <title ng-bind="pageTitle"></title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="assets/css/style.css"/>
     <script src="../vendor/angular/angular.min.js"></script>
     <script src="../vendor/angular/ui-router.js"></script>
     <script src="app/app.js"></script>
     <script src="constants/constant.js"></script>
-    <script src="services/session.js"></script>
-    <script src="factories/authService.js"></script>
+    <script src="services/sessionService.js"></script>
+    <script src="factories/authFactory.js"></script>
     <script src="app/home/home.js"></script>
     <script src="app/login/login.js"></script>
 </head>
 <body>
 <div id="container">
-    {{currentUser}}
-    dgsdgs
-    <div ui-view="main"></div>
+    {{currentUser.user}}
+    {{currentUser.role}}
+    {{userRoles.admin}}
+    <div ng-if="currentUser">
+        <div ng-switch on="currentUser.role">
+            <div ng-switch-when="admin">You're admin.</div>
+            <div ng-switch-when="editor">You're editor.</div>
+            <div ng-switch-default>You're something else.</div>
+        </div>
+        <div>
+            <ul class="navMenu">
+                <li><a href="#">Menu1</a>
+                    <ul>
+                        <li>
+                            <a href="#">Menu1_1</a>
+                        </li>
+                        <li>
+                            <a href="#">Menu1_2</a>
+                        </li>
+                    </ul>
+                </li>
+                <li><a href="#">Menu2</a>
+                    <ul>
+                        <li>
+                            <a href="#">Menu2_2</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div style="clear: both"></div>
+<div ui-view="main"></div>
 </div>
 </body>
 </html>

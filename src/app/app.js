@@ -7,13 +7,27 @@ angular.module('ngBoilerplate', [
         //$locationProvider.html5Mode(true);
         $urlRouterProvider.otherwise('/login');
     })
-    .run(function run() {
+    .run(function ($rootScope, AUTH_EVENTS, authFactory) {
+        $rootScope.$on('$stateChangeStart', function (event, next) {
+            var authorizedRoles = next.data.authorizedRoles;
+            switch (authFactory.checkAuth(authorizedRoles)) {
+                case AUTH_EVENTS.notAuthenticated:
+                    event.preventDefault();
+                    $rootScope.$broadcast(AUTH_EVENTS.notAuthenticated);
+                    break;
+                case AUTH_EVENTS.notAuthorized:
+                    event.preventDefault();
+                    $rootScope.$broadcast(AUTH_EVENTS.notAuthorized);
+                    break;
+                case AUTH_EVENTS.sessionTimeout:
+                    event.preventDefault();
+                    $rootScope.$broadcast(AUTH_EVENTS.sessionTimeout);
+                    break;
+            }
+        });
     })
-    .controller('AppCtrl', function ($scope, $location, USER_ROLES, AuthService) {
+    .controller('AppCtrl', function ($scope) {
         $scope.currentUser = null;
-        $scope.userRoles = USER_ROLES;
-        $scope.isAuthorized = AuthService.isAuthorized;
-
         $scope.setCurrentUser = function (user) {
             $scope.currentUser = user;
         };

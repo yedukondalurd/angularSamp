@@ -1,7 +1,7 @@
 angular.module('ngBoilerplate.home', [
         'ui.router'
     ])
-    .config(function($stateProvider) {
+    .config(function ($stateProvider) {
         $stateProvider.state('home', {
             url: '/home',
             views: {
@@ -10,7 +10,10 @@ angular.module('ngBoilerplate.home', [
                     templateUrl: 'app/home/home.tpl.html'
                 }
             },
-            data: { pageTitle: 'Home' }
+            data: {
+                pageTitle: 'Home',
+                authorizedRoles: ['admin1']
+            }
         });
     })
     .controller('homeCtrl', function ($scope) {

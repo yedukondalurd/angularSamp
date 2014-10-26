@@ -1,4 +1,5 @@
 angular.module('ngBoilerplate.login', [
+        'ngBoilerplate.home',
         'ui.router'
     ])
     .config(function ($stateProvider) {
@@ -10,18 +11,21 @@ angular.module('ngBoilerplate.login', [
                     templateUrl: 'app/login/login.tpl.html'
                 }
             },
-            data: { pageTitle: 'Login' }
+            data: {
+                pageTitle: 'Login'
+            }
         });
     })
-    .controller('loginCtrl', function ($scope, $rootScope, AUTH_EVENTS, AuthService) {
+    .controller('loginCtrl', function ($scope, $rootScope, $location, AUTH_EVENTS, authFactory) {
         $scope.credentials = {
             username: '',
             password: ''
         };
         $scope.login = function (credentials) {
-            AuthService.login(credentials).then(function (data) {
+            authFactory.login(credentials).then(function (data) {
                 $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
-                $scope.setCurrentUser(data.user);
+                $scope.setCurrentUser(data);
+                $location.path('/home');
             }, function () {
                 $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
             });
